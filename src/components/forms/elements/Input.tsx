@@ -1,6 +1,7 @@
 import { Box, InputLabel, Input as MuiInput } from '@mui/material'
 import { ChangeEvent } from 'preact/compat'
-import { Control, FieldValues, useController } from 'react-hook-form'
+import {useController } from 'react-hook-form'
+import { TInput } from '../../../types'
 
 const Input = ({
   control,
@@ -8,13 +9,8 @@ const Input = ({
   rules,
   type,
   label,
-}: {
-  control: Control<FieldValues>
-  name: string
-  label: string
-  rules?: {}
-  type?: string
-}) => {
+  multiline
+}: TInput) => {
   const {
     field: { value, onChange },
   } = useController({ control, name, rules })
@@ -36,6 +32,7 @@ const Input = ({
         sx={{
           padding: 0.2,
         }}
+        multiline={multiline}
         type={type ?? 'text'}
         onChange={changeHandler}
         id={name}
