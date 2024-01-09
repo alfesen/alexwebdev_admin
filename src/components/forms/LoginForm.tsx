@@ -3,6 +3,7 @@ import { Typography } from '@mui/joy'
 import { Control, FieldValues, useForm } from 'react-hook-form'
 import Input from './elements/Input'
 import { nanoid } from 'nanoid'
+import toast from 'react-hot-toast'
 
 const LoginForm = () => {
   const { handleSubmit, control, watch } = useForm({
@@ -17,8 +18,8 @@ const LoginForm = () => {
       email: watch('email'),
       password: watch('password'),
     }
-    
-    const response = await fetch('http://localhost:3000/users/signin', {
+
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -26,7 +27,12 @@ const LoginForm = () => {
       },
       body: JSON.stringify(credentials),
     })
-    console.log(response)
+
+    if (!response.ok) {
+      return toast.error("Login didn't succeed")
+    }
+
+    toast.success('Successfully logged in')
   }
 
   return (
