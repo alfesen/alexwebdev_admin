@@ -1,20 +1,11 @@
-import { Box, InputLabel, Input, Button } from "@mui/material"
-import { RefObject } from "preact"
-import { TargetedEvent } from "preact/compat"
-import { useRef } from "preact/hooks"
-import { Control, FieldValues, useController } from "react-hook-form"
+import { Box, InputLabel, Input, Button } from '@mui/material'
+import { RefObject } from 'preact'
+import { TargetedEvent } from 'preact/compat'
+import { useRef } from 'preact/hooks'
+import { useController } from 'react-hook-form'
+import { TImagePicker } from '../../../types'
 
-const ImagePicker = ({
-  name,
-  control,
-  rules,
-  label
-}: {
-  label: string
-  name: string
-  control: Control<FieldValues>
-  rules?: object
-}) => {
+const ImagePicker = ({ name, control, rules, label }: TImagePicker) => {
   const { field } = useController({ name, control, rules })
   const ref: RefObject<HTMLDivElement> = useRef(null)
 
@@ -53,7 +44,7 @@ const ImagePicker = ({
         onChange={handleImageChange}
         ref={ref}
         type="file"
-        sx={{ display: "none" }}
+        sx={{ display: 'none' }}
       />
       <Button onClick={handleFileButton} color="info">
         Choose the file

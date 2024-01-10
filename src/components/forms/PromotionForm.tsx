@@ -4,6 +4,7 @@ import { Control, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
+import toast from 'react-hot-toast'
 
 const PromotionForm = () => {
   const { handleSubmit, control, watch } = useForm({
@@ -19,13 +20,17 @@ const PromotionForm = () => {
     formData.append('image', data.image)
 
     console.log(formData)
-    const response = await fetch('http://localhost:3000/promotions', {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/promotions`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
     })
 
-    console.log(response)
+     if (!response.ok) {
+       return toast.error("Promotion wasn't uploaded")
+     }
+
+     toast.success('Successfully uploaded promotion')
   }
 
   return (

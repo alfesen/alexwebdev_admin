@@ -1,18 +1,17 @@
 import { Control, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { Box, Button, Stack } from '@mui/material'
+import { Box, Button, Stack, MenuItem, Select } from '@mui/material'
 import { Typography } from '@mui/joy'
 import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
-import { useState } from 'preact/hooks'
 import { nanoid } from 'nanoid'
+import toast from 'react-hot-toast'
 
 const TechForm = () => {
-  const [isSuccess, setIsSuccess] = useState<boolean | null>()
-
-  const { handleSubmit, control, watch } = useForm({
-    defaultValues: {
+  const { handleSubmit, control, watch, register } = useForm({
+    defaultValues:  {
       heading: '',
       text: '',
+      category: 'frontend',
       icon: undefined,
     },
   })
@@ -21,18 +20,20 @@ const TechForm = () => {
     const formData = new FormData()
     formData.append('heading', watch('heading'))
     formData.append('text', watch('text'))
+    formData.append('category', watch('category'))
     formData.append('icon', data.icon)
 
-    const response = await fetch('http://localhost:3000/tech', {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/tech`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
     })
 
     if (!response.ok) {
-      return setIsSuccess(false)
+      return toast.error("The tech wasn't created")
     }
-    return setIsSuccess(true)
+
+    toast.success('The tech was created')
   }
 
   const inputs = ['Heading', 'Text']
@@ -47,6 +48,15 @@ const TechForm = () => {
         width={'100%'}
         onSubmit={handleSubmit(onSubmit)}
       >
+        <Select
+          {...register('category')}
+          value={watch('category')}
+        >
+          <MenuItem value="frontend">Frontend</MenuItem>
+          <MenuItem value="backend">Backend</MenuItem>
+          <MenuItem value="fullstack">Fullstack</MenuItem>
+          <MenuItem value="testing">Testing</MenuItem>
+        </Select>
         {inputs.map((input) => (
           <Input
             key={nanoid()}
@@ -61,8 +71,6 @@ const TechForm = () => {
           control={control as unknown as Control<FieldValues>}
         />
         <Button type="submit">Submit</Button>
-        {isSuccess && <h1>Success</h1>}
-        {!isSuccess && <h1>failed</h1>}
       </Box>
     </Stack>
   )
