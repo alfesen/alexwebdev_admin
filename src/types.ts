@@ -1,5 +1,12 @@
 import { Control, FieldValues } from 'react-hook-form'
 
+export interface IErrorResponse {
+  statusCode: number
+  timestamp: string
+  path: string
+  message: string
+}
+
 export interface TInputBase {
   control: Control<FieldValues>
   name: string
