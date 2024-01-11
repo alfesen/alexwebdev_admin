@@ -4,7 +4,7 @@ import { Typography } from '@mui/joy'
 import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
-import toast from 'react-hot-toast'
+import useSubmitForm from '../../hooks/useSubmitForm'
 
 const TechForm = () => {
   const { handleSubmit, control, watch, register } = useForm({
@@ -16,24 +16,17 @@ const TechForm = () => {
     },
   })
 
+  const submitHandler = useSubmitForm()
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData()
+
     formData.append('heading', watch('heading'))
     formData.append('text', watch('text'))
     formData.append('category', watch('category'))
     formData.append('icon', data.icon)
 
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/tech`, {
-      method: 'POST',
-      credentials: 'include',
-      body: formData,
-    })
-
-    if (!response.ok) {
-      return toast.error("The tech wasn't created")
-    }
-
-    toast.success('The tech was created')
+    submitHandler('/tech', formData)
   }
 
   const inputs = ['Heading', 'Text']
