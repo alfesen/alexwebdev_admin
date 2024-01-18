@@ -1,12 +1,11 @@
-import { Container } from "@mui/material"
-import LoginForm from "../forms/LoginForm"
+import { Container } from '@mui/material'
+import LoginForm from '../forms/LoginForm'
 
 const LoginPage = () => {
   return (
-
-    <Container maxWidth='xs'>
+    <Container maxWidth="xs">
       <LoginForm />
-    </Container >
+    </Container>
   )
 }
 

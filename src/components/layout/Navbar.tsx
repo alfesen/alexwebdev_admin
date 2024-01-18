@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom'
 
 const pages = ['Promotions', 'Tech']
 
-function ResponsiveAppBar() {
+const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
@@ -150,4 +150,4 @@ function ResponsiveAppBar() {
     </AppBar>
   )
 }
-export default ResponsiveAppBar
+export default Navbar
