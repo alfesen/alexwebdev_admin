@@ -12,16 +12,16 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { useState } from 'preact/hooks'
-import Cookie from 'js-cookie'
 import { toLowerCase } from 'string-ts'
 import { Link } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 
 const pages = ['Promotions', 'Tech']
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
-
+  const {logoutHandler} = useAuth()
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -38,7 +38,7 @@ const Navbar = () => {
   }
 
   const logout = () => {
-    Cookie.remove(import.meta.env.VITE_LOGIN_COOKIE)
+    logoutHandler()
     handleCloseUserMenu()
   }
 
