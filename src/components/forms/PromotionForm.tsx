@@ -6,12 +6,21 @@ import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
 import useSubmitForm from '../../hooks/useSubmitForm'
 
-const PromotionForm = () => {
+const PromotionForm = ({
+  id,
+}: {
+  id?: string
+}) => {
   const { handleSubmit, control, watch } = useForm({
-    defaultValues: {
-      text: '',
-      image: undefined,
-    },
+    defaultValues: id
+      ? async () =>
+          fetch(`${import.meta.env.VITE_SERVER_URL}/promotions/${id}`)
+            .then((res) => res.json())
+            .then((promotion: any) => promotion)
+      : {
+          text: '',
+          image: undefined
+        }
   })
 
   const submitHandler = useSubmitForm()
@@ -20,7 +29,24 @@ const PromotionForm = () => {
     const formData = new FormData()
     formData.append('text', watch('text'))
     formData.append('image', data.image)
-    submitHandler('/promotions', formData)
+
+    let query: FormData | {}
+
+    if (typeof data.icon === 'string') {
+      const newQuery: any = {}
+      formData.forEach((value, key) => (newQuery[key] = value))
+      query = newQuery
+    } else {
+      query = formData
+    }
+
+    await submitHandler(
+      `/promotions${id ? '/' + id : ''}`,
+      query,
+      id ? 'PATCH' : 'POST'
+    )
+
+    location.reload()
   }
 
   return (
@@ -38,6 +64,7 @@ const PromotionForm = () => {
           control={control as unknown as Control<FieldValues>}
           label="Text"
           name="text"
+          multiline
         />
         <ImagePicker
           control={control as unknown as Control<FieldValues>}
