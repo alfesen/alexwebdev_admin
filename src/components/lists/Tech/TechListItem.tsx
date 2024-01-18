@@ -6,13 +6,16 @@ import {
   AccordionActions,
   Button,
   Accordion
-} from "@mui/material"
-import { Typography } from "@mui/joy"
-import { useMutation } from "react-query"
-import axios from "axios"
-import toast from "react-hot-toast"
-import TechForm from "../forms/TechForm"
-import { useState } from "preact/hooks"
+} from '@mui/material'
+import { Typography } from '@mui/joy'
+import { useMutation } from 'react-query'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import TechForm from '../../forms/TechForm'
+import { useState } from 'preact/hooks'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import EditIcon from '@mui/icons-material/EditNote'
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 
 const TechListItem = ({
   heading,
@@ -28,7 +31,7 @@ const TechListItem = ({
   const [editMode, setEditMode] = useState<boolean>(false)
 
   const { mutate } = useMutation({
-    mutationKey: ["remove single tech"],
+    mutationKey: ['remove single tech'],
     mutationFn: async () => {
       try {
         const { data } = await axios.delete(
@@ -48,15 +51,15 @@ const TechListItem = ({
       {editMode ? (
         <TechForm id={id} />
       ) : (
-        <Accordion square sx={{ margin: 0 }}>
-          <AccordionSummary>
+        <Accordion disableGutters elevation={0} square sx={{ margin: 0 }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography level="h3">{heading}</Typography>
           </AccordionSummary>
 
           <AccordionDetails>
-            <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+            <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
               <Avatar
-                sx={{ overflow: "visible", background: "none" }}
+                sx={{ overflow: 'visible', background: 'none' }}
                 src={`${import.meta.env.VITE_SERVER_URL}/${icon}`}
               />
               <Box>
@@ -65,10 +68,18 @@ const TechListItem = ({
               </Box>
             </Box>
             <AccordionActions>
-              <Button onClick={() => setEditMode(true)} color="primary">
+              <Button
+                onClick={() => setEditMode(true)}
+                color="info"
+                endIcon={<EditIcon />}
+              >
                 Edit
               </Button>
-              <Button onClick={mutate} color="warning">
+              <Button
+                onClick={mutate}
+                color="warning"
+                endIcon={<DeleteSweepIcon />}
+              >
                 Remove
               </Button>
             </AccordionActions>

@@ -9,8 +9,8 @@ const LoginForm = () => {
   const { handleSubmit, control, watch } = useForm({
     defaultValues: {
       email: '',
-      password: '',
-    },
+      password: ''
+    }
   })
 
   const submitHandler = useSubmitForm()
@@ -18,9 +18,9 @@ const LoginForm = () => {
   const onSubmit = async () => {
     const credentials = {
       email: watch('email'),
-      password: watch('password'),
+      password: watch('password')
     }
-    submitHandler('/users/signin', credentials)
+    submitHandler('/users/signin', credentials, 'POST')
   }
 
   return (
