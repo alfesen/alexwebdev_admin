@@ -3,7 +3,7 @@ import { Typography } from '@mui/joy'
 import { Control, FieldValues, useForm } from 'react-hook-form'
 import Input from './elements/Input'
 import { nanoid } from 'nanoid'
-import useSubmitForm from '../../hooks/useSubmitForm'
+import useAuth from '../../hooks/useAuth'
 
 const LoginForm = () => {
   const { handleSubmit, control, watch } = useForm({
@@ -13,14 +13,14 @@ const LoginForm = () => {
     }
   })
 
-  const submitHandler = useSubmitForm()
+  const { loginHandler } = useAuth()
 
   const onSubmit = async () => {
     const credentials = {
       email: watch('email'),
       password: watch('password')
     }
-    submitHandler('/users/signin', credentials, 'POST')
+    loginHandler(credentials)
   }
 
   return (
