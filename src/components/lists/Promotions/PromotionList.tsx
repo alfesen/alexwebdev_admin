@@ -3,10 +3,13 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import PromotionListItem from './PromotionListItem'
 import { nanoid } from 'nanoid'
-import { useEffect, useState } from 'preact/hooks'
+import Modal from 'components/modal/Modal'
+import useModal from 'hooks/useModal'
+import PromotionForm from 'components/forms/PromotionForm'
+import { Box, Button } from '@mui/material'
 
 const PromotionList = () => {
-  const [update, setUpdate] = useState<boolean>(false)
+  const { isModalOpen, closeModal, openModal } = useModal()
 
   const { data: promotions, isLoading } = useQuery({
     queryKey: ['promotion list'],
@@ -18,26 +21,28 @@ const PromotionList = () => {
     },
     refetchOnWindowFocus: false
   })
-
-  useEffect(() => {
-    setUpdate(false)
-  }, [update])
-
   if (isLoading) return <></>
 
   return (
-    <Sheet sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-      {promotions.map((p: any, index: number) => (
-        <PromotionListItem
-          key={nanoid()}
-          index={index + 1}
-          id={p.id}
-          text={p.text}
-          image={p.image}
-          update={() => setUpdate(true)}
-        />
-      ))}
-    </Sheet>
+    <>
+      <Modal open={isModalOpen} onClose={closeModal}>
+        <PromotionForm />
+      </Modal>
+      <Sheet sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+        {promotions.map((p: any, index: number) => (
+          <PromotionListItem
+            key={nanoid()}
+            index={index + 1}
+            id={p.id}
+            text={p.text}
+            image={p.image}
+          />
+        ))}
+      </Sheet>
+      <Box textAlign={'center'} marginY={3}>
+        <Button onClick={openModal}>Add new</Button>
+      </Box>
+    </>
   )
 }
 

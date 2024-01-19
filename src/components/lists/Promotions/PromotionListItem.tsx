@@ -13,13 +13,11 @@ const PromotionListItem = ({
   text,
   image,
   id,
-  update
 }: {
   index: number
   text: string
   image: string
   id: string
-  update: () => void
 }) => {
   const [editMode, setEditMode] = useState<boolean>(false)
 
@@ -31,7 +29,6 @@ const PromotionListItem = ({
           `${import.meta.env.VITE_SERVER_URL}/promotions/${id}`,
           { withCredentials: true }
         )
-        update()
         return toast.success(data.message)
       } catch (err) {
         if (err instanceof Error) {
