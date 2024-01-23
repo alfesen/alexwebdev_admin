@@ -50,7 +50,7 @@ const PromotionListItem = ({
               alt={text}
             />
           </AspectRatio>
-          <CardContent>
+          <CardContent sx={{ justifyContent: 'space-between' }}>
             <Typography>
               {index}. {text}
             </Typography>
