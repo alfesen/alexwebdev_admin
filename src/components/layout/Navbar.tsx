@@ -15,7 +15,7 @@ import { useState } from 'preact/hooks'
 import { toLowerCase } from 'string-ts'
 import { Link } from 'react-router-dom'
 
-const pages = ['Promotions', 'Tech']
+const pages = ['Promotions', 'Tech', 'Messages']
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
