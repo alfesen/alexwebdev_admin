@@ -21,3 +21,10 @@ export interface TInput extends TInputBase {
 
 export type TImagePicker = TInputBase
 
+export type TMessage = {
+  id: string
+  email: string
+  name: string
+  message: string
+  consent: boolean
+}

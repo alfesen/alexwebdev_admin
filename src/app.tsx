@@ -6,6 +6,7 @@ import TechList from './components/lists/Tech/TechList'
 import PromotionList from './components/lists/Promotions/PromotionList'
 import LoginPage from './components/pages/LoginPage'
 import useAuth from './hooks/useAuth'
+import Messages from 'components/lists/Messages/Messages'
 
 export function App() {
   const { isAuth } = useAuth()
@@ -16,7 +17,8 @@ export function App() {
       element: <MainLayout />,
       children: [
         { path: '/tech', element: <TechList /> },
-        { path: '/promotions', element: <PromotionList /> }
+        { path: '/promotions', element: <PromotionList /> },
+        { path: '/messages', element: <Messages /> }
       ]
     }
   ])
