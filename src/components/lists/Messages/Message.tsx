@@ -7,7 +7,7 @@ import { useMutation } from 'react-query'
 import type { TMessage } from 'src/types'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 
-const Message = ({ email, name, message, consent, id }: TMessage) => {
+const Message = ({ email, name, message, consent, date, id }: TMessage) => {
   const { mutate } = useMutation({
     mutationKey: ['remove single message'],
     mutationFn: async () => {
@@ -26,9 +26,10 @@ const Message = ({ email, name, message, consent, id }: TMessage) => {
   })
 
   return (
-    <Box display="flex" alignItems={'center'} gap={3} padding={1}>
+    <Box display="flex" flexWrap='wrap' alignItems={'center'} gap={3} padding={1}>
       <MessageIcon />
-      <Box>
+      <Box minWidth="320px" overflow='hidden'>
+        <Typography component='sub' level='body-sm'>{date}</Typography>
         <Typography level="title-lg">{name}</Typography>
         <Link component="a" href={`mailto:${email}`}>
           {email}
@@ -48,7 +49,12 @@ const Message = ({ email, name, message, consent, id }: TMessage) => {
         flex={1}
         alignItems={'center'}
       >
-        <Button sx={{height: 100}} onClick={mutate} color="warning" endIcon={<DeleteSweepIcon />}>
+        <Button
+          sx={{ height: 100 }}
+          onClick={mutate}
+          color="warning"
+          endIcon={<DeleteSweepIcon />}
+        >
           Remove
         </Button>
       </Box>

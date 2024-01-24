@@ -27,4 +27,5 @@ export type TMessage = {
   name: string
   message: string
   consent: boolean
+  date: string
 }
