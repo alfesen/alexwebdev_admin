@@ -6,7 +6,8 @@ import toast from 'react-hot-toast'
 import { useMutation } from 'react-query'
 import type { TMessage } from 'src/types'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-
+import { client } from '../../../app'
+import { Updater } from 'react-query/types/core/utils'
 const Message = ({ email, name, message, consent, date, id }: TMessage) => {
   const { mutate } = useMutation({
     mutationKey: ['remove single message'],
@@ -22,14 +23,29 @@ const Message = ({ email, name, message, consent, date, id }: TMessage) => {
           return toast.error(err.message)
         }
       }
+    },
+    onMutate: async () => {
+      await client.cancelQueries({ queryKey: ['messages'] })
+      await client.getQueryData(['messages'])
+      await client.setQueryData(['messages'], (old: Updater<TMessage[], any>) =>
+        old.filter((m: TMessage) => m.id !== id)
+      )
     }
   })
 
   return (
-    <Box display="flex" flexWrap='wrap' alignItems={'center'} gap={3} padding={1}>
+    <Box
+      display="flex"
+      flexWrap="wrap"
+      alignItems={'center'}
+      gap={3}
+      padding={1}
+    >
       <MessageIcon />
-      <Box minWidth="320px" overflow='hidden'>
-        <Typography component='sub' level='body-sm'>{date}</Typography>
+      <Box minWidth="320px" overflow="hidden">
+        <Typography component="sub" level="body-sm">
+          {date}
+        </Typography>
         <Typography level="title-lg">{name}</Typography>
         <Link component="a" href={`mailto:${email}`}>
           {email}

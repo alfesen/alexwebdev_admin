@@ -29,3 +29,18 @@ export type TMessage = {
   consent: boolean
   date: string
 }
+
+export type TPromotion = {
+  index: number
+  text: string
+  image: string
+  id: string
+}
+
+export type TTechItem = {
+  heading: string
+  icon: string
+  text: string
+  id: string
+  category: string
+}
