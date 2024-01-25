@@ -16,18 +16,10 @@ import { useState } from 'preact/hooks'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
+import { client } from '../../../app'
+import { TTechItem } from 'src/types'
 
-const TechListItem = ({
-  heading,
-  icon,
-  text,
-  id
-}: {
-  heading: string
-  icon: string
-  text: string
-  id: string
-}) => {
+const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
   const [editMode, setEditMode] = useState<boolean>(false)
 
   const { mutate } = useMutation({
@@ -43,6 +35,18 @@ const TechListItem = ({
           return toast.error(err.message)
         }
       }
+    },
+    onMutate: async () => {
+      await client.cancelQueries({ queryKey: ['tech lists'] })
+      const previousData = (await client.getQueryData([
+        'tech lists'
+      ])) as Record<string, TTechItem[]>
+      const newData = {
+        ...previousData,
+        [category]: previousData[category].filter((t: TTechItem) => t.id !== id)
+      }
+      client.setQueryData(['tech lists'], newData)
+      return previousData
     }
   })
 

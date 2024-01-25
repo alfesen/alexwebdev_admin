@@ -8,6 +8,7 @@ import LoginPage from './components/pages/LoginPage'
 import useAuth from './hooks/useAuth'
 import Messages from 'components/lists/Messages/Messages'
 
+export const client = new QueryClient()
 export function App() {
   const { isAuth } = useAuth()
 
@@ -23,7 +24,6 @@ export function App() {
     }
   ])
 
-  const client = new QueryClient()
   return (
     <>
       <Toaster />

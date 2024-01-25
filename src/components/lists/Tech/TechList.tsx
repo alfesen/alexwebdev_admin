@@ -41,6 +41,7 @@ const TechList = () => {
               </Typography>
               {data[k].map((item: any) => (
                 <TechListItem
+                  category={item.category}
                   heading={item.heading}
                   icon={item.icon}
                   text={item.text}

@@ -7,18 +7,11 @@ import { useState } from 'preact/hooks'
 import PromotionForm from '../../forms/PromotionForm'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
+import { client } from '../../../app'
+import { Updater } from 'react-query/types/core/utils'
+import { TPromotion } from 'src/types'
 
-const PromotionListItem = ({
-  index,
-  text,
-  image,
-  id,
-}: {
-  index: number
-  text: string
-  image: string
-  id: string
-}) => {
+const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
   const [editMode, setEditMode] = useState<boolean>(false)
 
   const { mutate } = useMutation({
@@ -35,6 +28,15 @@ const PromotionListItem = ({
           return toast.error(err.message)
         }
       }
+    },
+    onMutate: async () => {
+      await client.cancelQueries({ queryKey: ['promotion list'] })
+      await client.getQueryData(['promotion list'])
+      await client.setQueryData(
+        ['promotion list'],
+        (old: Updater<TPromotion[], any>) =>
+          old.filter((m: TPromotion) => m.id !== id)
+      )
     }
   })
 
