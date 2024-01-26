@@ -10,7 +10,7 @@ import TechForm from 'components/forms/TechForm'
 import Modal from 'components/modal/Modal'
 
 const TechList = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['tech lists'],
     queryFn: async () => {
       const { data: categories } = await axios.get(
@@ -30,7 +30,12 @@ const TechList = () => {
   return (
     <>
       <Modal open={isModalOpen} onClose={closeModal}>
-        <TechForm />
+        <TechForm
+          onSubmit={() => {
+            closeModal()
+            refetch()
+          }}
+        />
       </Modal>
       <Stack gap={3}>
         {keys.map((k) => {

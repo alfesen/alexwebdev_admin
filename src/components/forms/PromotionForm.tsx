@@ -8,7 +8,9 @@ import useSubmitForm from '../../hooks/useSubmitForm'
 
 const PromotionForm = ({
   id,
+  onSubmit
 }: {
+  onSubmit: () => void
   id?: string
 }) => {
   const { handleSubmit, control, watch } = useForm({
@@ -25,7 +27,7 @@ const PromotionForm = ({
 
   const submitHandler = useSubmitForm()
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const submitForm: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData()
     formData.append('text', watch('text'))
     formData.append('image', data.image)
@@ -46,7 +48,7 @@ const PromotionForm = ({
       id ? 'PATCH' : 'POST'
     )
 
-    location.reload()
+    onSubmit()
   }
 
   return (
@@ -57,7 +59,7 @@ const PromotionForm = ({
         component="form"
         autoComplete="off"
         width={'100%'}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(submitForm)}
       >
         <Input
           key={nanoid()}
