@@ -1,36 +1,16 @@
 import MessageIcon from '@mui/icons-material/Mail'
 import { Typography } from '@mui/joy'
 import { Box, Button, Link } from '@mui/material'
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import { useMutation } from 'react-query'
 import type { TMessage } from 'src/types'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-import { client } from '../../../app'
-import { Updater } from 'react-query/types/core/utils'
+import useRemove from 'hooks/useRemove'
+
 const Message = ({ email, name, message, consent, date, id }: TMessage) => {
-  const { mutate } = useMutation({
+  const { removeItem } = useRemove({
     mutationKey: ['remove single message'],
-    mutationFn: async () => {
-      try {
-        const { data } = await axios.delete(
-          `${import.meta.env.VITE_SERVER_URL}/messages/${id}`,
-          { withCredentials: true }
-        )
-        return toast.success(data.message)
-      } catch (err) {
-        if (err instanceof Error) {
-          return toast.error(err.message)
-        }
-      }
-    },
-    onMutate: async () => {
-      await client.cancelQueries({ queryKey: ['messages'] })
-      await client.getQueryData(['messages'])
-      await client.setQueryData(['messages'], (old: Updater<TMessage[], any>) =>
-        old.filter((m: TMessage) => m.id !== id)
-      )
-    }
+    category: 'messages',
+    id: id,
+    queryKey: ['messages']
   })
 
   return (
@@ -67,7 +47,7 @@ const Message = ({ email, name, message, consent, date, id }: TMessage) => {
       >
         <Button
           sx={{ height: 100 }}
-          onClick={mutate}
+          onClick={removeItem}
           color="warning"
           endIcon={<DeleteSweepIcon />}
         >

@@ -8,47 +8,52 @@ import {
   Accordion
 } from '@mui/material'
 import { Typography } from '@mui/joy'
-import { useMutation } from 'react-query'
-import axios from 'axios'
-import toast from 'react-hot-toast'
 import TechForm from '../../forms/TechForm'
 import { useState } from 'preact/hooks'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-import { client } from '../../../app'
 import { TTechItem } from 'src/types'
+import useRemove from 'hooks/useRemove'
 
 const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
   const [editMode, setEditMode] = useState<boolean>(false)
 
-  const { mutate } = useMutation({
+  const { removeItem } = useRemove({
+    category: 'tech',
+    id: id,
     mutationKey: ['remove single tech'],
-    mutationFn: async () => {
-      try {
-        const { data } = await axios.delete(
-          `${import.meta.env.VITE_SERVER_URL}/tech/${id}`
-        )
-        return toast.success(data.message)
-      } catch (err) {
-        if (err instanceof Error) {
-          return toast.error(err.message)
-        }
-      }
-    },
-    onMutate: async () => {
-      await client.cancelQueries({ queryKey: ['tech lists'] })
-      const previousData = (await client.getQueryData([
-        'tech lists'
-      ])) as Record<string, TTechItem[]>
-      const newData = {
-        ...previousData,
-        [category]: previousData[category].filter((t: TTechItem) => t.id !== id)
-      }
-      client.setQueryData(['tech lists'], newData)
-      return previousData
-    }
+    queryKey: ['tech lists'],
+    options: { objectKey: category }
   })
+
+  // const { mutate } = useMutation({
+  //   mutationKey: ['remove single tech'],
+  //   mutationFn: async () => {
+  //     try {
+  //       const { data } = await axios.delete(
+  //         `${import.meta.env.VITE_SERVER_URL}/tech/${id}`
+  //       )
+  //       return toast.success(data.message)
+  //     } catch (err) {
+  //       if (err instanceof Error) {
+  //         return toast.error(err.message)
+  //       }
+  //     }
+  //   },
+  //   onMutate: async () => {
+  //     await client.cancelQueries({ queryKey: ['tech lists'] })
+  //     const previousData = (await client.getQueryData([
+  //       'tech lists'
+  //     ])) as Record<string, TTechItem[]>
+  //     const newData = {
+  //       ...previousData,
+  //       [category]: previousData[category].filter((t: TTechItem) => t.id !== id)
+  //     }
+  //     client.setQueryData(['tech lists'], newData)
+  //     return { previousData, newData }
+  //   }
+  // })
 
   return (
     <>
@@ -80,7 +85,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
                 Edit
               </Button>
               <Button
-                onClick={mutate}
+                onClick={removeItem}
                 color="warning"
                 endIcon={<DeleteSweepIcon />}
               >
