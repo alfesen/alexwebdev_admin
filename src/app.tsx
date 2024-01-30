@@ -7,6 +7,7 @@ import PromotionList from './components/lists/Promotions/PromotionList'
 import LoginPage from './components/pages/LoginPage'
 import useAuth from './hooks/useAuth'
 import Messages from 'components/lists/Messages/Messages'
+import LanguageProvider from './context/LanguageProvider'
 
 export const client = new QueryClient()
 export function App() {
@@ -27,9 +28,11 @@ export function App() {
   return (
     <>
       <Toaster />
-      <QueryClientProvider client={client}>
-        {!isAuth ? <LoginPage /> : <RouterProvider router={router} />}
-      </QueryClientProvider>
+      <LanguageProvider>
+        <QueryClientProvider client={client}>
+          {!isAuth ? <LoginPage /> : <RouterProvider router={router} />}
+        </QueryClientProvider>
+      </LanguageProvider>
     </>
   )
 }
