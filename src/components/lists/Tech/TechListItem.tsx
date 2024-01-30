@@ -27,38 +27,10 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
     options: { objectKey: category }
   })
 
-  // const { mutate } = useMutation({
-  //   mutationKey: ['remove single tech'],
-  //   mutationFn: async () => {
-  //     try {
-  //       const { data } = await axios.delete(
-  //         `${import.meta.env.VITE_SERVER_URL}/tech/${id}`
-  //       )
-  //       return toast.success(data.message)
-  //     } catch (err) {
-  //       if (err instanceof Error) {
-  //         return toast.error(err.message)
-  //       }
-  //     }
-  //   },
-  //   onMutate: async () => {
-  //     await client.cancelQueries({ queryKey: ['tech lists'] })
-  //     const previousData = (await client.getQueryData([
-  //       'tech lists'
-  //     ])) as Record<string, TTechItem[]>
-  //     const newData = {
-  //       ...previousData,
-  //       [category]: previousData[category].filter((t: TTechItem) => t.id !== id)
-  //     }
-  //     client.setQueryData(['tech lists'], newData)
-  //     return { previousData, newData }
-  //   }
-  // })
-
   return (
     <>
       {editMode ? (
-        <TechForm id={id} />
+        <TechForm onSubmit={location.reload} id={id} />
       ) : (
         <Accordion disableGutters elevation={0} square sx={{ margin: 0 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>

@@ -20,7 +20,7 @@ const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
   return (
     <Card sx={{ flex: 1 }}>
       {editMode ? (
-        <PromotionForm id={id} />
+        <PromotionForm onSubmit={location.reload} id={id} />
       ) : (
         <>
           <AspectRatio minHeight={120} maxHeight={200}>
