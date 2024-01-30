@@ -44,3 +44,8 @@ export type TTechItem = {
   id: string
   category: string
 }
+
+export type TLanguageContext = {
+  language: 'en' | 'pl'
+  setLanguage: (lang: 'en' | 'pl') => void
+}
