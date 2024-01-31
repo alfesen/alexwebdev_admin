@@ -5,7 +5,6 @@ const useAuth = () => {
   const [isAuth, setIsAuth] = useState(
     !!Cookies.get(import.meta.env.VITE_LOGIN_COOKIE)
   )
-
   const submitHandler = useSubmitForm()
 
   useEffect(() => {
