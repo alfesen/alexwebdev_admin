@@ -22,7 +22,7 @@ const useRemove = ({
     mutationFn: async () => {
       try {
         const { data } = await axios.delete(
-          `${import.meta.env.VITE_SERVER_URL}/${category}/${id}`,
+          `${process.env.SERVER_URL}/${category}/${id}`,
           {withCredentials: true}
         )
         return toast.success(data.message)

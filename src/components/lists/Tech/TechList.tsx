@@ -14,7 +14,7 @@ const TechList = () => {
     queryKey: ['tech lists'],
     queryFn: async () => {
       const { data: categories } = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/tech`
+        `${process.env.SERVER_URL}/tech`
       )
       return categories
     },

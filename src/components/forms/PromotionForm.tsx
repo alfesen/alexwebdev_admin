@@ -16,7 +16,7 @@ const PromotionForm = ({
   const { handleSubmit, control, watch } = useForm({
     defaultValues: id
       ? async () =>
-          fetch(`${import.meta.env.VITE_SERVER_URL}/promotions/${id}`)
+          fetch(`${process.env.SERVER_URL}/promotions/${id}`)
             .then((res) => res.json())
             .then((promotion: any) => promotion)
       : {

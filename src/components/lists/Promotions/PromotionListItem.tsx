@@ -25,7 +25,7 @@ const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
         <>
           <AspectRatio minHeight={120} maxHeight={200}>
             <img
-              src={`${import.meta.env.VITE_SERVER_URL}/${image}`}
+              src={`${process.env.SERVER_URL}/${image}`}
               alt={text}
             />
           </AspectRatio>
