@@ -41,7 +41,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
             <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
               <Avatar
                 sx={{ overflow: 'visible', background: 'none' }}
-                src={`${import.meta.env.VITE_SERVER_URL}/${icon}`}
+                src={`${process.env.SERVER_URL}/${icon}`}
               />
               <Box>
                 <Typography level="h4">{heading}</Typography>

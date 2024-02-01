@@ -3,14 +3,14 @@ import Cookies from 'js-cookie'
 import useSubmitForm from './useSubmitForm'
 const useAuth = () => {
   const [isAuth, setIsAuth] = useState(
-    !!Cookies.get(import.meta.env.VITE_LOGIN_COOKIE)
+    !!Cookies.get(process.env.LOGIN_COOKIE!)
   )
 
   const submitHandler = useSubmitForm()
 
   useEffect(() => {
     const checkForCookieChange = () => {
-      setIsAuth(!!Cookies.get(import.meta.env.VITE_LOGIN_COOKIE))
+      setIsAuth(!!Cookies.get(process.env.LOGIN_COOKIE!))
     }
     const intervalId = setInterval(checkForCookieChange, 1000)
     return () => clearInterval(intervalId)
@@ -21,7 +21,7 @@ const useAuth = () => {
   }
 
   const logoutHandler = async () => {
-    Cookies.remove(import.meta.env.VITE_LOGIN_COOKIE)
+    Cookies.remove(process.env.LOGIN_COOKIE!)
   }
 
   return { isAuth, loginHandler, logoutHandler }

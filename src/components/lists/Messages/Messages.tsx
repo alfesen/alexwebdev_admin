@@ -15,7 +15,7 @@ const Messages = () => {
     queryKey: ['messages'],
     queryFn: async () => {
       const { data: messages } = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/messages`,
+        `${process.env.SERVER_URL}/messages`,
         { withCredentials: true }
       )
       return messages as TMessage[]

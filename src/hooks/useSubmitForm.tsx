@@ -11,7 +11,7 @@ const useSubmitForm = () => {
 
     const body = isFormData ? data : JSON.stringify(data)
 
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}${url}`, {
+    const response = await fetch(`${process.env.SERVER_URL}${url}`, {
       method: method,
       credentials: "include",
       headers: !isFormData
@@ -21,6 +21,8 @@ const useSubmitForm = () => {
         : undefined,
       body
     })
+
+    console.log(response.headers)
 
     if (!response.ok) {
       const res = (await response.json()) as IErrorResponse

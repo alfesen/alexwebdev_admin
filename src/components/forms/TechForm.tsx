@@ -16,7 +16,7 @@ const TechForm = ({ id, onSubmit }: { id?: string; onSubmit: () => void }) => {
   } = useForm({
     defaultValues: id
       ? async () =>
-          fetch(`${import.meta.env.VITE_SERVER_URL}/tech/${id}`)
+          fetch(`${process.env.SERVER_URL}/tech/${id}`)
             .then((res) => res.json())
             .then((tech: any) => tech)
       : {
