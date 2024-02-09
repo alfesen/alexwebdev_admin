@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { ValidationPipe } from '@nestjs/common'
 import { UploadExceptionFilter } from './filters/upload-exception.filter'
-import * as session from 'express-session'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -20,18 +19,6 @@ async function bootstrap() {
     credentials: true
   })
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
-  app.use(
-    session({
-      secret: process.env.COOKIE_KEY,
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: true,
-        sameSite: 'none',
-        httpOnly: false
-      }
-    })
-  )
 
   app.useGlobalFilters(new UploadExceptionFilter())
   await app.listen(3000)
