@@ -1,5 +1,5 @@
 import { Box, Modal as MuiModal } from '@mui/material'
-import { ReactNode } from 'preact/compat'
+import { ReactNode } from 'react'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -13,7 +13,15 @@ const style = {
   p: 4
 }
 
-const Modal = ({ children, open, onClose }: { children: ReactNode; open: boolean, onClose: () => void }) => {
+const Modal = ({
+  children,
+  open,
+  onClose
+}: {
+  children: ReactNode
+  open: boolean
+  onClose: () => void
+}) => {
   return (
     <div>
       <MuiModal

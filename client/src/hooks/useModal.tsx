@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useState } from 'react'
 
 const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)

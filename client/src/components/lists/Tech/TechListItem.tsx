@@ -8,12 +8,12 @@ import {
   Accordion
 } from '@mui/material'
 import { Typography } from '@mui/joy'
-import TechForm from '../../forms/TechForm'
-import { useState } from 'preact/hooks'
+import TechForm from 'components/forms/TechForm'
+import { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-import { TTechItem } from 'src/types'
+import { TTechItem } from '@/types'
 import useRemove from 'hooks/useRemove'
 
 const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
@@ -30,7 +30,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
   return (
     <>
       {editMode ? (
-        <TechForm onSubmit={location.reload} id={id} />
+        <TechForm onSubmit={window.location.reload} id={id} />
       ) : (
         <Accordion disableGutters elevation={0} square sx={{ margin: 0 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -41,7 +41,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
             <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
               <Avatar
                 sx={{ overflow: 'visible', background: 'none' }}
-                src={`${process.env.SERVER_URL}/${icon}`}
+                src={`${process.env.REACT_APP_SERVER_URL}/${icon}`}
               />
               <Box>
                 <Typography level="h4">{heading}</Typography>
@@ -57,7 +57,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
                 Edit
               </Button>
               <Button
-                onClick={removeItem}
+                onClick={() => removeItem()}
                 color="warning"
                 endIcon={<DeleteSweepIcon />}
               >

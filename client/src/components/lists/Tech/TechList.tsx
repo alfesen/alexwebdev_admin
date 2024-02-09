@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 import { Box, Button, Stack } from '@mui/material'
 import { Typography } from '@mui/joy'
 import { capitalize } from 'string-ts'
-import useModal from '../../../hooks/useModal'
+import useModal from 'hooks/useModal'
 import TechForm from 'components/forms/TechForm'
 import Modal from 'components/modal/Modal'
 
@@ -14,7 +14,7 @@ const TechList = () => {
     queryKey: ['tech lists'],
     queryFn: async () => {
       const { data: categories } = await axios.get(
-        `${process.env.SERVER_URL}/tech`
+        `${process.env.REACT_APP_SERVER_URL}/tech`
       )
       return categories
     },

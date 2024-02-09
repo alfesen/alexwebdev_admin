@@ -1,10 +1,10 @@
 import { AspectRatio, Card, CardContent, Typography } from '@mui/joy'
 import { Box, Button } from '@mui/material'
-import { useState } from 'preact/hooks'
-import PromotionForm from '../../forms/PromotionForm'
+import { useState } from 'react'
+import PromotionForm from 'components/forms/PromotionForm'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-import { TPromotion } from 'src/types'
+import { TPromotion } from '@/types'
 import useRemove from 'hooks/useRemove'
 
 const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
@@ -20,12 +20,12 @@ const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
   return (
     <Card sx={{ flex: 1 }}>
       {editMode ? (
-        <PromotionForm onSubmit={location.reload} id={id} />
+        <PromotionForm onSubmit={window.location.reload} id={id} />
       ) : (
         <>
           <AspectRatio minHeight={120} maxHeight={200}>
             <img
-              src={`${process.env.SERVER_URL}/${image}`}
+              src={`${process.env.REACT_APP_SERVER_URL}/${image}`}
               alt={text}
             />
           </AspectRatio>
@@ -42,7 +42,7 @@ const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
                 Edit
               </Button>
               <Button
-                onClick={removeItem}
+                onClick={() => removeItem()}
                 color="warning"
                 endIcon={<DeleteSweepIcon />}
               >

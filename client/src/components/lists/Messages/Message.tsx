@@ -1,7 +1,7 @@
 import MessageIcon from '@mui/icons-material/Mail'
 import { Typography } from '@mui/joy'
 import { Box, Button, Link } from '@mui/material'
-import type { TMessage } from 'src/types'
+import type { TMessage } from '@/types'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 import useRemove from 'hooks/useRemove'
 
@@ -47,7 +47,7 @@ const Message = ({ email, name, message, consent, date, id }: TMessage) => {
       >
         <Button
           sx={{ height: 100 }}
-          onClick={removeItem}
+          onClick={() => removeItem()}
           color="warning"
           endIcon={<DeleteSweepIcon />}
         >
