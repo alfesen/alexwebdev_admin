@@ -9,15 +9,22 @@ import {
 } from '@mui/material'
 import { Typography } from '@mui/joy'
 import TechForm from 'components/forms/TechForm'
-import { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 import { TTechItem } from '@/types'
 import useRemove from 'hooks/useRemove'
+import useEdit from 'hooks/useEdit'
 
-const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
-  const [editMode, setEditMode] = useState<boolean>(false)
+const TechListItem = ({
+  heading,
+  icon,
+  text,
+  id,
+  category,
+  refetch
+}: TTechItem) => {
+  const { enterEditMode, submitAndExitEditMode, cancel, editMode } = useEdit(refetch)
 
   const { removeItem } = useRemove({
     category: 'tech',
@@ -30,7 +37,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
   return (
     <>
       {editMode ? (
-        <TechForm onSubmit={window.location.reload} id={id} />
+        <TechForm onCancel={cancel} onSubmit={submitAndExitEditMode} id={id} />
       ) : (
         <Accordion disableGutters elevation={0} square sx={{ margin: 0 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -50,7 +57,7 @@ const TechListItem = ({ heading, icon, text, id, category }: TTechItem) => {
             </Box>
             <AccordionActions>
               <Button
-                onClick={() => setEditMode(true)}
+                onClick={enterEditMode}
                 color="info"
                 endIcon={<EditIcon />}
               >

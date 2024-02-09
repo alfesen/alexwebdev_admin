@@ -8,10 +8,12 @@ import useSubmitForm from 'hooks/useSubmitForm'
 
 const PromotionForm = ({
   id,
-  onSubmit
+  onSubmit,
+  onCancel
 }: {
   onSubmit: () => void
   id?: string
+  onCancel?: () => void
 }) => {
   const { handleSubmit, control, watch } = useForm({
     defaultValues: id
@@ -74,6 +76,7 @@ const PromotionForm = ({
           name="image"
         />
         <Button type="submit">Submit</Button>
+        {onCancel && <Button type="button" onClick={onCancel}>Cancel</Button>}
       </Box>
     </Stack>
   )

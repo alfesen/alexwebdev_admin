@@ -11,7 +11,11 @@ import { Box, Button } from '@mui/material'
 const PromotionList = () => {
   const { isModalOpen, closeModal, openModal } = useModal()
 
-  const { data: promotions, isLoading, refetch } = useQuery({
+  const {
+    data: promotions,
+    isLoading,
+    refetch
+  } = useQuery({
     queryKey: ['promotion list'],
     queryFn: async () => {
       const { data: promotions } = await axios.get(
@@ -36,6 +40,7 @@ const PromotionList = () => {
       <Sheet sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
         {promotions.map((p: any, index: number) => (
           <PromotionListItem
+            refetch={refetch}
             key={nanoid()}
             index={index + 1}
             id={p.id}

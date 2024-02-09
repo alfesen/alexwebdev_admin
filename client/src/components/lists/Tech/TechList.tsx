@@ -40,12 +40,13 @@ const TechList = () => {
       <Stack gap={3}>
         {keys.map((k) => {
           return (
-            <Box>
+            <Box key={nanoid()}>
               <Typography level="h3" marginBottom={1.4}>
                 {capitalize(k)}
               </Typography>
               {data[k].map((item: any) => (
                 <TechListItem
+                  refetch={refetch}
                   category={item.category}
                   heading={item.heading}
                   icon={item.icon}

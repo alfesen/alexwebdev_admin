@@ -1,14 +1,15 @@
 import { AspectRatio, Card, CardContent, Typography } from '@mui/joy'
 import { Box, Button } from '@mui/material'
-import { useState } from 'react'
 import PromotionForm from 'components/forms/PromotionForm'
 import EditIcon from '@mui/icons-material/EditNote'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 import { TPromotion } from '@/types'
 import useRemove from 'hooks/useRemove'
+import useEdit from 'hooks/useEdit'
 
-const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
-  const [editMode, setEditMode] = useState<boolean>(false)
+const PromotionListItem = ({ index, text, image, id, refetch }: TPromotion) => {
+  const { enterEditMode, submitAndExitEditMode, cancel, editMode } =
+    useEdit(refetch)
 
   const { removeItem } = useRemove({
     mutationKey: ['remove single promotion'],
@@ -20,7 +21,11 @@ const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
   return (
     <Card sx={{ flex: 1 }}>
       {editMode ? (
-        <PromotionForm onSubmit={window.location.reload} id={id} />
+        <PromotionForm
+          onCancel={cancel}
+          onSubmit={submitAndExitEditMode}
+          id={id}
+        />
       ) : (
         <>
           <AspectRatio minHeight={120} maxHeight={200}>
@@ -35,7 +40,7 @@ const PromotionListItem = ({ index, text, image, id }: TPromotion) => {
             </Typography>
             <Box display="flex" justifyContent="end">
               <Button
-                onClick={() => setEditMode(true)}
+                onClick={enterEditMode}
                 color="info"
                 endIcon={<EditIcon />}
               >
