@@ -4,7 +4,7 @@ import { Control, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
-import useSubmitForm from '../../hooks/useSubmitForm'
+import useSubmitForm from 'hooks/useSubmitForm'
 
 const PromotionForm = ({
   id,
@@ -16,7 +16,7 @@ const PromotionForm = ({
   const { handleSubmit, control, watch } = useForm({
     defaultValues: id
       ? async () =>
-          fetch(`${process.env.SERVER_URL}/promotions/${id}`)
+          fetch(`${process.env.REACT_APP_SERVER_URL}/promotions/${id}`)
             .then((res) => res.json())
             .then((promotion: any) => promotion)
       : {

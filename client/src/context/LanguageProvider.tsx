@@ -1,6 +1,6 @@
-import { useState } from 'preact/compat'
-import { ReactNode, createContext } from 'preact/compat'
-import { TLanguageContext } from 'src/types'
+import { useState, createContext } from "react";
+import type { ReactNode } from 'react'
+import { TLanguageContext } from '@/types'
 
 export const LanguageContext = createContext<TLanguageContext>({
   language: 'en',

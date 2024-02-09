@@ -26,7 +26,11 @@ export class UsersController {
   @Post('signin')
   async login(@Body() { email, password }: User, @Res() res: Response) {
     const user = await this.authService.login(email, password)
-    res.cookie('isAuth', user._id.toString(), { expires: expirationDate })
+    res.cookie('isAuth', user._id.toString(), {
+      expires: expirationDate,
+      sameSite: 'none',
+      secure: true
+    })
     return user
   }
 }

@@ -3,7 +3,7 @@ import { Typography } from '@mui/joy'
 import { Control, FieldValues, useForm } from 'react-hook-form'
 import Input from './elements/Input'
 import { nanoid } from 'nanoid'
-import useAuth from '../../hooks/useAuth'
+import useAuth from 'hooks/useAuth'
 
 const LoginForm = () => {
   const { handleSubmit, control, watch } = useForm({
@@ -20,6 +20,7 @@ const LoginForm = () => {
       email: watch('email'),
       password: watch('password')
     }
+
     loginHandler(credentials)
   }
 

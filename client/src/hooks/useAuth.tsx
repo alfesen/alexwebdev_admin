@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'preact/hooks'
+import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import useSubmitForm from './useSubmitForm'
 const useAuth = () => {
   const [isAuth, setIsAuth] = useState(
-    !!Cookies.get(process.env.LOGIN_COOKIE!)
+    !!Cookies.get(process.env.REACT_APP_LOGIN_COOKIE!)
   )
-
+  console.log('env: ', Cookies.get('isAuth'))
   const submitHandler = useSubmitForm()
+  
 
   useEffect(() => {
     const checkForCookieChange = () => {
-      setIsAuth(!!Cookies.get(process.env.LOGIN_COOKIE!))
+      setIsAuth(!!Cookies.get(process.env.REACT_APP_LOGIN_COOKIE!))
     }
     const intervalId = setInterval(checkForCookieChange, 1000)
     return () => clearInterval(intervalId)
@@ -21,7 +22,7 @@ const useAuth = () => {
   }
 
   const logoutHandler = async () => {
-    Cookies.remove(process.env.LOGIN_COOKIE!)
+    Cookies.remove(process.env.REACT_APP_LOGIN_COOKIE!)
   }
 
   return { isAuth, loginHandler, logoutHandler }

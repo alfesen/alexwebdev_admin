@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useQuery } from 'react-query'
 import Message from './Message'
-import { TMessage } from 'src/types'
+import { TMessage } from '@/types'
 import { Sheet } from '@mui/joy'
 import { Divider } from '@mui/material'
 
@@ -15,7 +15,7 @@ const Messages = () => {
     queryKey: ['messages'],
     queryFn: async () => {
       const { data: messages } = await axios.get(
-        `${process.env.SERVER_URL}/messages`,
+        `${process.env.REACT_APP_SERVER_URL}/messages`,
         { withCredentials: true }
       )
       return messages as TMessage[]

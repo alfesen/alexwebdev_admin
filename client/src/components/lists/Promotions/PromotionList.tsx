@@ -15,7 +15,7 @@ const PromotionList = () => {
     queryKey: ['promotion list'],
     queryFn: async () => {
       const { data: promotions } = await axios.get(
-        `${process.env.SERVER_URL}/promotions`
+        `${process.env.REACT_APP_SERVER_URL}/promotions`
       )
       return promotions
     },

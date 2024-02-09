@@ -4,7 +4,7 @@ import { Typography } from '@mui/joy'
 import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
-import useSubmitForm from '../../hooks/useSubmitForm'
+import useSubmitForm from 'hooks/useSubmitForm'
 
 const TechForm = ({ id, onSubmit }: { id?: string; onSubmit: () => void }) => {
   const {
@@ -16,7 +16,7 @@ const TechForm = ({ id, onSubmit }: { id?: string; onSubmit: () => void }) => {
   } = useForm({
     defaultValues: id
       ? async () =>
-          fetch(`${process.env.SERVER_URL}/tech/${id}`)
+          fetch(`${process.env.REACT_APP_SERVER_URL}/tech/${id}`)
             .then((res) => res.json())
             .then((tech: any) => tech)
       : {

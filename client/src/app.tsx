@@ -10,6 +10,7 @@ import Messages from 'components/lists/Messages/Messages'
 import LanguageProvider from './context/LanguageProvider'
 
 export const client = new QueryClient()
+
 export function App() {
   const { isAuth } = useAuth()
 

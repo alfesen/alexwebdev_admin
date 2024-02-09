@@ -11,7 +11,7 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import useAuth from '../../hooks/useAuth'
-import { useState } from 'preact/hooks'
+import { useState } from 'react'
 import { toLowerCase } from 'string-ts'
 import { Link } from 'react-router-dom'
 
@@ -42,7 +42,7 @@ const Navbar = () => {
   }
 
   return (
-    <AppBar position="static" color="default" sx={{marginBottom: 3}}>
+    <AppBar position="static" color="default" sx={{ marginBottom: 3 }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
