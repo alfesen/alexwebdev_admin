@@ -1,4 +1,5 @@
 import { Control, FieldValues } from 'react-hook-form'
+import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from 'react-query'
 
 export interface IErrorResponse {
   statusCode: number
@@ -35,6 +36,9 @@ export type TPromotion = {
   text: string
   image: string
   id: string
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<any, unknown>>
 }
 
 export type TTechItem = {
@@ -43,6 +47,9 @@ export type TTechItem = {
   text: string
   id: string
   category: string
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<any, unknown>>
 }
 
 export type TLanguageContext = {

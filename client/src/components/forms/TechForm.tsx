@@ -6,7 +6,15 @@ import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
 import useSubmitForm from 'hooks/useSubmitForm'
 
-const TechForm = ({ id, onSubmit }: { id?: string; onSubmit: () => void }) => {
+const TechForm = ({
+  id,
+  onSubmit,
+  onCancel
+}: {
+  id?: string
+  onCancel?: () => void
+  onSubmit: () => void
+}) => {
   const {
     handleSubmit,
     control,
@@ -93,6 +101,11 @@ const TechForm = ({ id, onSubmit }: { id?: string; onSubmit: () => void }) => {
           control={control as unknown as Control<FieldValues>}
         />
         <Button type="submit">Submit</Button>
+        {onCancel && (
+          <Button type="button" onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
       </Box>
     </Stack>
   )
