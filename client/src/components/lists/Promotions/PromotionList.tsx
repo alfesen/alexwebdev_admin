@@ -19,7 +19,7 @@ const PromotionList = () => {
     queryKey: ['promotion list'],
     queryFn: async () => {
       const { data: promotions } = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/promotions`
+        `/api/promotions`
       )
       return promotions
     },
@@ -38,7 +38,7 @@ const PromotionList = () => {
         />
       </Modal>
       <Sheet sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-        {promotions.map((p: any, index: number) => (
+        {!isLoading && promotions.length > 0 && promotions.map((p: any, index: number) => (
           <PromotionListItem
             refetch={refetch}
             key={nanoid()}

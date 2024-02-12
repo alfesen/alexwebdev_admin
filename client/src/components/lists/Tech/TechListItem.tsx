@@ -48,7 +48,7 @@ const TechListItem = ({
             <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
               <Avatar
                 sx={{ overflow: 'visible', background: 'none' }}
-                src={`${process.env.REACT_APP_SERVER_URL}/${icon}`}
+                src={`/api/${icon}`}
               />
               <Box>
                 <Typography level="h4">{heading}</Typography>

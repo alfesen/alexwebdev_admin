@@ -18,7 +18,7 @@ const PromotionForm = ({
   const { handleSubmit, control, watch } = useForm({
     defaultValues: id
       ? async () =>
-          fetch(`${process.env.REACT_APP_SERVER_URL}/promotions/${id}`)
+          fetch(`/api/promotions/${id}`)
             .then((res) => res.json())
             .then((promotion: any) => promotion)
       : {
@@ -76,7 +76,11 @@ const PromotionForm = ({
           name="image"
         />
         <Button type="submit">Submit</Button>
-        {onCancel && <Button type="button" onClick={onCancel}>Cancel</Button>}
+        {onCancel && (
+          <Button type="button" onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
       </Box>
     </Stack>
   )
