@@ -15,7 +15,7 @@ const Messages = () => {
     queryKey: ['messages'],
     queryFn: async () => {
       const { data: messages } = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/messages`,
+        `/api/messages`,
         { withCredentials: true }
       )
       return messages as TMessage[]

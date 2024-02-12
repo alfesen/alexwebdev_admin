@@ -17,6 +17,12 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["client/src/*"],
+      "components/*": ["client/src/components/*"],
+      "hooks/*": ["client/src/hooks/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

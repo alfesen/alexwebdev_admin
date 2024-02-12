@@ -11,7 +11,7 @@ const useSubmitForm = () => {
 
     const body = isFormData ? data : JSON.stringify(data)
 
-    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}${url}`, {
+    const response = await fetch(`/api${url}`, {
       method: method,
       credentials: 'include',
       headers: !isFormData

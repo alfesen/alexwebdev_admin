@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import useSubmitForm from './useSubmitForm'
 const useAuth = () => {
-  const [isAuth, setIsAuth] = useState(
-    !!Cookies.get(process.env.REACT_APP_LOGIN_COOKIE!)
-  )
-  console.log('env: ', Cookies.get('isAuth'))
+  const [isAuth, setIsAuth] = useState(!!Cookies.get(process.env.REACT_APP_LOGIN_COOKIE!))
+
   const submitHandler = useSubmitForm()
-  
 
   useEffect(() => {
     const checkForCookieChange = () => {
@@ -19,6 +16,7 @@ const useAuth = () => {
 
   const loginHandler = (credentials: { email: string; password: string }) => {
     submitHandler('/users/signin', credentials, 'POST')
+    console.log(Cookies.get(process.env.REACT_APP_LOGIN_COOKIE!))
   }
 
   const logoutHandler = async () => {

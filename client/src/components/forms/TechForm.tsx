@@ -24,7 +24,7 @@ const TechForm = ({
   } = useForm({
     defaultValues: id
       ? async () =>
-          fetch(`${process.env.REACT_APP_SERVER_URL}/tech/${id}`)
+          fetch(`/api/tech/${id}`)
             .then((res) => res.json())
             .then((tech: any) => tech)
       : {

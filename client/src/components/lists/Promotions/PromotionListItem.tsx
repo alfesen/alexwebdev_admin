@@ -30,7 +30,7 @@ const PromotionListItem = ({ index, text, image, id, refetch }: TPromotion) => {
         <>
           <AspectRatio minHeight={120} maxHeight={200}>
             <img
-              src={`${process.env.REACT_APP_SERVER_URL}/${image}`}
+              src={`/api/${image}`}
               alt={text}
             />
           </AspectRatio>
