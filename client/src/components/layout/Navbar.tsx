@@ -6,13 +6,13 @@ import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import useAuth from '../../hooks/useAuth'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageProvider'
-import { NativeSelect } from '@mui/material'
 import MobileNavigation from './NavComponents/MobileNavigation'
 import DesktopNavigation from './NavComponents/DesktopNavigation'
 import UserMenu from './NavComponents/UserMenu'
+import LanguageSelect from './NavComponents/NavbarTooltip/LanguageSelect'
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -33,12 +33,6 @@ const Navbar = () => {
       link: 'messages'
     }
   ]
-
-  const changeLanguageHandler = (
-    e: ChangeEvent<HTMLSelectElement> & { target: { value: 'en' | 'pl' } }
-  ) => {
-    ctx.setLanguage(e.target.value)
-  }
 
   const { logoutHandler } = useAuth()
 
@@ -65,13 +59,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
             <Tooltip title="Open settings">
               <>
-                <NativeSelect
-                  defaultValue={ctx.language}
-                  onChange={changeLanguageHandler}
-                >
-                  <option value="en">En</option>
-                  <option value="pl">Pl</option>
-                </NativeSelect>
+                <LanguageSelect />
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>
