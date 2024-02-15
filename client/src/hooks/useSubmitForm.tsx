@@ -22,7 +22,6 @@ const useSubmitForm = () => {
       body
     })
 
-    console.log(response)
 
     if (!response.ok) {
       const res = (await response.json()) as IErrorResponse

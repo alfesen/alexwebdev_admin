@@ -23,7 +23,8 @@
     "paths": {
       "@/*": ["*"],
       "components/*": ["components/*"],
-      "hooks/*": ["hooks/*"]
+      "hooks/*": ["hooks/*"],
+      "context/*": ["context/*"],
     }
   },
   "include": [

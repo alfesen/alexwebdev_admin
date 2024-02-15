@@ -1,7 +1,7 @@
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useMutation } from 'react-query'
-import { client } from '../App'
+import { client } from '../app'
 import { Updater } from 'react-query/types/core/utils'
 
 const useRemove = ({

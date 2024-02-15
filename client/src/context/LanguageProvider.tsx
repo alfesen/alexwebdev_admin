@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext } from 'react'
 import type { ReactNode } from 'react'
 import { TLanguageContext } from '@/types'
 
