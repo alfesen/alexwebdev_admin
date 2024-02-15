@@ -5,12 +5,10 @@ import MenuItem from '@mui/material/MenuItem'
 const UserMenu = ({
   anchorEl,
   onClose,
-  // logout,
   actions
 }: {
   anchorEl: any
   onClose: () => void
-  // logout: () => void
   actions?: { action: () => void; text: string }[]
 }) => {
   return (

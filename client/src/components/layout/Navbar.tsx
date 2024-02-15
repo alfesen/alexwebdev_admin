@@ -1,18 +1,16 @@
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import useAuth from '../../hooks/useAuth'
-import { useState } from 'react'
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageProvider'
 import MobileNavigation from './NavComponents/MobileNavigation'
 import DesktopNavigation from './NavComponents/DesktopNavigation'
-import UserMenu from './NavComponents/UserMenu'
+import UserMenu from './NavComponents/NavbarTooltip/UserMenu'
 import LanguageSelect from './NavComponents/NavbarTooltip/LanguageSelect'
+import UserButton from './NavComponents/NavbarTooltip/UserButton'
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -60,9 +58,7 @@ const Navbar = () => {
             <Tooltip title="Open settings">
               <>
                 <LanguageSelect />
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar />
-                </IconButton>
+                <UserButton onClick={handleOpenUserMenu} />
               </>
             </Tooltip>
             <UserMenu
