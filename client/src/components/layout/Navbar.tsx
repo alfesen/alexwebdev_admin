@@ -11,15 +11,27 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import useAuth from '../../hooks/useAuth'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { toLowerCase } from 'string-ts'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { LanguageContext } from '../../context/LanguageProvider'
+import { NativeSelect } from '@mui/material'
 
 const pages = ['Promotions', 'Tech', 'Messages']
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+
+  const ctx = useContext(LanguageContext)
+
+  const changeLanguageHandler = (
+    e: ChangeEvent<HTMLSelectElement> & { target: { value: 'en' | 'pl' } }
+  ) => {
+    ctx.setLanguage(e.target.value)
+  }
+
   const { logoutHandler } = useAuth()
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget)
@@ -100,11 +112,20 @@ const Navbar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar />
-              </IconButton>
+              <>
+                <NativeSelect
+                  defaultValue={ctx.language}
+                  onChange={changeLanguageHandler}
+                >
+                  <option value="en">En</option>
+                  <option value="pl">Pl</option>
+                </NativeSelect>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar />
+                </IconButton>
+              </>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}

@@ -13,7 +13,7 @@ export const client = new QueryClient()
 
 export function App() {
   const { isAuth } = useAuth()
-  console.log(process.env)
+
   const router = createBrowserRouter([
     {
       path: '/',
