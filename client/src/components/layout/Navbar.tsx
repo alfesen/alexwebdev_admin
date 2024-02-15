@@ -2,20 +2,17 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
 import useAuth from '../../hooks/useAuth'
 import { ChangeEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageProvider'
 import { NativeSelect } from '@mui/material'
 import MobileNavigation from './NavComponents/MobileNavigation'
+import DesktopNavigation from './NavComponents/DesktopNavigation'
+import UserMenu from './NavComponents/UserMenu'
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -49,7 +46,6 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget)
   }
 
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
@@ -64,18 +60,7 @@ const Navbar = () => {
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <MobileNavigation pages={pages} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(({ pageName, link }) => (
-              <Button
-                key={pageName}
-                component={Link}
-                to={`/${link}`}
-                sx={{ my: 2, color: '#555', display: 'block' }}
-              >
-                {pageName}
-              </Button>
-            ))}
-          </Box>
+          <DesktopNavigation pages={pages} />
 
           <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
             <Tooltip title="Open settings">
@@ -92,26 +77,11 @@ const Navbar = () => {
                 </IconButton>
               </>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
+            <UserMenu
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={!!anchorElUser}
               onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={logout}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
+              actions={[{ action: logout, text: 'Logout' }]}
+            />
           </Box>
         </Toolbar>
       </Container>
