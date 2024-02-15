@@ -11,7 +11,7 @@ const LanguageSelect = () => {
   }
 
   return (
-    <NativeSelect defaultValue={ctx.language} onChange={changeLanguageHandler}>
+    <NativeSelect value={ctx.language} onChange={changeLanguageHandler}>
       <option value="en">En</option>
       <option value="pl">Pl</option>
     </NativeSelect>

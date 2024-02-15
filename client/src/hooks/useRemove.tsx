@@ -1,7 +1,7 @@
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useMutation } from 'react-query'
-import { client } from '@/app'
+import { client } from '../app'
 import { Updater } from 'react-query/types/core/utils'
 
 const useRemove = ({
@@ -21,10 +21,9 @@ const useRemove = ({
     mutationKey: [mutationKey],
     mutationFn: async () => {
       try {
-        const { data } = await axios.delete(
-          `/api/${category}/${id}`,
-          { withCredentials: true }
-        )
+        const { data } = await axios.delete(`/api/${category}/${id}`, {
+          withCredentials: true
+        })
         return toast.success(data.message)
       } catch (err) {
         if (err instanceof Error) {
