@@ -17,7 +17,8 @@ const PromotionListItem = ({ index, text, image, id, refetch }: TPromotion) => {
     id: id,
     queryKey: ['promotion list']
   })
-
+ 
+  
   return (
     <Card sx={{ flex: 1 }}>
       {editMode ? (
@@ -29,10 +30,7 @@ const PromotionListItem = ({ index, text, image, id, refetch }: TPromotion) => {
       ) : (
         <>
           <AspectRatio minHeight={120} maxHeight={200}>
-            <img
-              src={`/api/${image}`}
-              alt={text}
-            />
+            <img src={`/api/${image}`} alt={text} />
           </AspectRatio>
           <CardContent sx={{ justifyContent: 'space-between' }}>
             <Typography>

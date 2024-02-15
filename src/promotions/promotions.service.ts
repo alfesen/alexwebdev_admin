@@ -18,9 +18,10 @@ export class PromotionsService {
     @InjectConnection() private connection: Connection,
   ) {}
 
-  async createPromotion(text: string, image: string, creator: string) {
+  async createPromotion(enText: string, plText: string, image: string, creator: string) {
     const promotion = new this.promotionModel({
-      text,
+      enText,
+      plText,
       image,
       creator,
     })
@@ -74,7 +75,7 @@ export class PromotionsService {
     return promotion.toObject({ getters: true })
   }
 
-  async updatePromotion(id: string, text: string, image: string) {
+  async updatePromotion(id: string, enText: string, plText: string, image: string) {
     const promotion = await this.promotionModel.findById(id)
     if (!promotion) {
       throw new NotFoundException("Promotion was not found")
@@ -87,7 +88,8 @@ export class PromotionsService {
       promotion.image = image
     }
 
-    promotion.text = text
+    promotion.enText = enText
+    promotion.plText = plText
 
     const validationError = promotion.validateSync()
 

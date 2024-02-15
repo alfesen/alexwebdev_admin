@@ -21,7 +21,8 @@
     "paths": {
       "@/*": ["client/src/*"],
       "components/*": ["client/src/components/*"],
-      "hooks/*": ["client/src/hooks/*"]
+      "hooks/*": ["client/src/hooks/*"],
+      "context/*": ["client/src/context/*"],
     }
   },
   "exclude": ["node_modules", "dist"]
