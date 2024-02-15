@@ -4,6 +4,8 @@ import { Control, FieldValues, useForm } from 'react-hook-form'
 import Input from './elements/Input'
 import { nanoid } from 'nanoid'
 import useAuth from 'hooks/useAuth'
+import { useContext } from 'react'
+import { LanguageContext } from 'context/LanguageProvider'
 
 const LoginForm = () => {
   const { handleSubmit, control, watch } = useForm({
@@ -12,7 +14,7 @@ const LoginForm = () => {
       password: ''
     }
   })
-
+  const ctx = useContext(LanguageContext)
   const { loginHandler } = useAuth()
 
   const onSubmit = async () => {
@@ -26,7 +28,7 @@ const LoginForm = () => {
 
   return (
     <Stack spacing={2}>
-      <Typography level="h3">Login Form</Typography>
+      <Typography level="h3">Login</Typography>
       <Box
         justifyContent={'center'}
         component="form"
@@ -43,10 +45,12 @@ const LoginForm = () => {
           key={nanoid()}
           type="password"
           control={control as unknown as Control<FieldValues>}
-          label="Password"
+          label={ctx.language === 'en' ? 'Password' : 'Hasło'}
           name="password"
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {ctx.language === 'en' ? 'Submit' : 'Zaloguj'}
+        </Button>
       </Box>
     </Stack>
   )

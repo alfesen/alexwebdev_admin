@@ -5,6 +5,8 @@ import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
 import useSubmitForm from 'hooks/useSubmitForm'
+import { useContext } from 'react'
+import { LanguageContext } from 'context/LanguageProvider'
 
 const PromotionForm = ({
   id,
@@ -53,9 +55,13 @@ const PromotionForm = ({
     onSubmit()
   }
 
+  const ctx = useContext(LanguageContext)
+
   return (
     <Stack spacing={2}>
-      <Typography level="h3">Promotion Form</Typography>
+      <Typography level="h3">
+        {ctx.language === 'en' ? 'Promotion Form' : 'Formularz Promocji'}
+      </Typography>
       <Box
         justifyContent={'center'}
         component="form"
@@ -66,19 +72,21 @@ const PromotionForm = ({
         <Input
           key={nanoid()}
           control={control as unknown as Control<FieldValues>}
-          label="Text"
+          label={ctx.language === 'en' ? 'Text' : 'Tekst'}
           name="text"
           multiline
         />
         <ImagePicker
           control={control as unknown as Control<FieldValues>}
-          label="Image"
+          label={ctx.language === 'en' ? 'Image' : 'Obrazek'}
           name="image"
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {ctx.language === 'en' ? 'Submit' : 'Wyślij'}
+        </Button>
         {onCancel && (
           <Button type="button" onClick={onCancel}>
-            Cancel
+            {ctx.language === 'en' ? 'Cancel' : 'Anuluj'}
           </Button>
         )}
       </Box>

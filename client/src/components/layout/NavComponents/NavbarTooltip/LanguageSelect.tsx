@@ -1,5 +1,5 @@
 import { useContext, type ChangeEvent } from 'react'
-import { LanguageContext } from '../../../../context/LanguageProvider'
+import { LanguageContext } from 'context/LanguageProvider'
 import { NativeSelect } from '@mui/material'
 
 const LanguageSelect = () => {
