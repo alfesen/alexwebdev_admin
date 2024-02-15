@@ -12,19 +12,31 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import useAuth from '../../hooks/useAuth'
 import { ChangeEvent, useState } from 'react'
-import { toLowerCase } from 'string-ts'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageProvider'
 import { NativeSelect } from '@mui/material'
-
-const pages = ['Promotions', 'Tech', 'Messages']
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const ctx = useContext(LanguageContext)
+
+  const pages = [
+    {
+      pageName: ctx.language === 'en' ? 'Promotions' : 'Promocje',
+      link: 'promotions'
+    },
+    {
+      pageName: ctx.language === 'en' ? 'Tech' : 'Technologie',
+      link: 'tech'
+    },
+    {
+      pageName: ctx.language === 'en' ? 'Messages' : 'Wiadomości',
+      link: 'messages'
+    }
+  ]
 
   const changeLanguageHandler = (
     e: ChangeEvent<HTMLSelectElement> & { target: { value: 'en' | 'pl' } }
@@ -86,28 +98,28 @@ const Navbar = () => {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              {pages.map((page) => (
+              {pages.map(({ pageName, link }) => (
                 <MenuItem
                   component={Link}
-                  to={`/${toLowerCase(page)}`}
-                  key={page}
+                  to={`/${link}`}
+                  key={pageName}
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">{pageName}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map(({ pageName, link }) => (
               <Button
-                key={page}
+                key={pageName}
                 component={Link}
-                to={`/${toLowerCase(page)}`}
+                to={`/${link}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: '#555', display: 'block' }}
               >
-                {page}
+                {pageName}
               </Button>
             ))}
           </Box>
