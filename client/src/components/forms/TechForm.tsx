@@ -1,10 +1,12 @@
 import { Control, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Box, Button, Stack, MenuItem, Select } from '@mui/material'
 import { Typography } from '@mui/joy'
+import { useContext } from 'react'
 import Input from './elements/Input'
 import ImagePicker from './elements/ImagePicker'
 import { nanoid } from 'nanoid'
 import useSubmitForm from 'hooks/useSubmitForm'
+import { LanguageContext } from 'context/LanguageProvider'
 
 const TechForm = ({
   id,
@@ -35,6 +37,8 @@ const TechForm = ({
         }
   })
 
+  const ctx = useContext(LanguageContext)
+
   const submitHandler = useSubmitForm()
 
   const submitForm: SubmitHandler<FieldValues> = async (data) => {
@@ -64,11 +68,22 @@ const TechForm = ({
     onSubmit()
   }
 
-  const inputs = ['Heading', 'Text']
+  const inputs = [
+    {
+      name: 'heading',
+      label: ctx.language === 'en' ? 'Heading' : 'Nazwa'
+    },
+    {
+      name: 'text',
+      label: ctx.language === 'en' ? 'Text' : 'text'
+    }
+  ]
 
   return (
     <Stack spacing={2}>
-      <Typography level="h3">Tech Form</Typography>
+      <Typography level="h3">
+        {ctx.language === 'en' ? 'Add Tech' : 'Dodaj Technologię'}
+      </Typography>
       <Box
         justifyContent={'center'}
         component="form"
@@ -87,23 +102,25 @@ const TechForm = ({
             <MenuItem value="testing">Testing</MenuItem>
           </Select>
         )}
-        {inputs.map((input) => (
+        {inputs.map(({ name, label }) => (
           <Input
             key={nanoid()}
             control={control as unknown as Control<FieldValues>}
-            label={input}
-            name={input.toLowerCase()}
+            label={label}
+            name={name}
           />
         ))}
         <ImagePicker
-          label="Icon"
+          label={ctx.language === 'en' ? 'Icon' : 'Ikonka'}
           name="icon"
           control={control as unknown as Control<FieldValues>}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {ctx.language === 'en' ? 'Submit' : 'Wyślij'}
+        </Button>
         {onCancel && (
           <Button type="button" onClick={onCancel}>
-            Cancel
+            {ctx.language === 'en' ? 'Cancel' : 'Anuluj'}
           </Button>
         )}
       </Box>

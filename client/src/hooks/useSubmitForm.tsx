@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast'
-import { IErrorResponse } from '../types'
+import { IErrorResponse } from '@/types'
 
 const useSubmitForm = () => {
   const submitHandler = async (
