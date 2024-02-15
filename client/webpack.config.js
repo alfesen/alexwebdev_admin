@@ -4,7 +4,8 @@ module.exports = {
     alias: {
       components: path.resolve(__dirname, './src/components'),
       hooks: path.resolve(__dirname, './src/hooks'),
-      context: path.resolve(__dirname, './src/context')
+      context: path.resolve(__dirname, './src/context'),
+      '@': path.resolve(__dirname, './src')
     }
   }
 }
