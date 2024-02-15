@@ -3,7 +3,10 @@ import mongoose from 'mongoose'
 
 export class PromotionDto {
   @Expose()
-  text: string
+  enText: string
+  
+  @Expose()
+  plText: string
 
   @Expose()
   id: mongoose.Schema.Types.ObjectId

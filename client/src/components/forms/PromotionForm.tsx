@@ -33,7 +33,8 @@ const PromotionForm = ({
 
   const submitForm: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData()
-    formData.append('text', watch('text'))
+    formData.append('enText', watch('enText'))
+    formData.append('plText', watch('plText'))
     formData.append('image', data.image)
 
     let query: FormData | {}
@@ -72,8 +73,15 @@ const PromotionForm = ({
         <Input
           key={nanoid()}
           control={control as unknown as Control<FieldValues>}
-          label={ctx.language === 'en' ? 'Text' : 'Tekst'}
-          name="text"
+          label={ctx.language === 'en' ? 'English Text' : 'Angielski Tekst'}
+          name="enText"
+          multiline
+        />
+        <Input
+          key={nanoid()}
+          control={control as unknown as Control<FieldValues>}
+          label={ctx.language === 'en' ? 'Polish Text' : 'Polski Tekst'}
+          name="plText"
           multiline
         />
         <ImagePicker

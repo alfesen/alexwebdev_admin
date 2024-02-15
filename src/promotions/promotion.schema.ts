@@ -8,7 +8,11 @@ export type HydratedPromotion = HydratedDocument<Promotion>
 export class Promotion {
   @IsString()
   @Prop({ required: true })
-  text: string
+  enText: string
+  
+  @IsString()
+  @Prop({ required: true })
+  plText: string
 
   @IsString()
   @Prop({ required: true })
