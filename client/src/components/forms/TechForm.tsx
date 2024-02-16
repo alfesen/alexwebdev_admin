@@ -45,7 +45,8 @@ const TechForm = ({
     const formData = new FormData()
 
     formData.append('heading', watch('heading'))
-    formData.append('text', watch('text'))
+    formData.append('enText', watch('enText'))
+    formData.append('plText', watch('plText'))
     formData.append('category', watch('category'))
     formData.append('icon', data.icon)
 
@@ -74,8 +75,12 @@ const TechForm = ({
       label: ctx.language === 'en' ? 'Heading' : 'Nazwa'
     },
     {
-      name: 'text',
-      label: ctx.language === 'en' ? 'Text' : 'text'
+      name: 'enText',
+      label: ctx.language === 'en' ? 'English Text' : 'Tekst angielski'
+    },
+    {
+      name: 'plText',
+      label: ctx.language === 'en' ? 'Polish Text' : 'Text polski'
     }
   ]
 

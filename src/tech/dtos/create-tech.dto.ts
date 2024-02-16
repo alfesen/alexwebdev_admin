@@ -1,10 +1,12 @@
-import { IsString } from "class-validator";
+import { IsString } from 'class-validator'
 
 export class CreateTechDto {
   @IsString()
   heading: string
   @IsString()
-  text: string
+  enText: string
+  @IsString()
+  plText: string
   @IsString()
   category: string
 }

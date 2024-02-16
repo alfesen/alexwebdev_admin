@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { HydratedDocument } from "mongoose"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { HydratedDocument } from 'mongoose'
 
 export type HydratedTech = HydratedDocument<Tech>
 
@@ -9,7 +9,10 @@ export class Tech {
   heading: string
 
   @Prop({ required: true })
-  text: string
+  enText: string
+  
+  @Prop({ required: true })
+  plText: string
 
   @Prop({ required: true })
   icon: string
