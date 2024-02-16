@@ -20,7 +20,8 @@ export class TechService {
 
   async createTech(
     heading: string,
-    text: string,
+    enText: string,
+    plText: string,
     category: string,
     icon: string,
   ) {
@@ -36,9 +37,10 @@ export class TechService {
 
     const tech = new this.techModel({
       heading,
-      text,
+      enText,
+      plText,
       category,
-      icon,
+      icon
     })
 
     const techErrors = tech.validateSync()
@@ -117,7 +119,8 @@ export class TechService {
     id: string,
     category: string,
     heading: string,
-    text: string,
+    enText: string,
+    plText: string,
     icon: string,
   ) {
     const existingTech = await this.techModel.findById(id)
@@ -133,7 +136,8 @@ export class TechService {
 
     existingTech.category = category
     existingTech.heading = heading
-    existingTech.text = text
+    existingTech.enText = enText
+    existingTech.plText = plText
     if(icon) {
       existingTech.icon = icon
     }

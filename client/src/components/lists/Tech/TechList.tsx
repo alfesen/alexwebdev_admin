@@ -8,6 +8,8 @@ import { capitalize } from 'string-ts'
 import useModal from 'hooks/useModal'
 import TechForm from 'components/forms/TechForm'
 import Modal from 'components/modal/Modal'
+import { useContext } from 'react'
+import { LanguageContext } from 'context/LanguageProvider'
 
 const TechList = () => {
   const { data, isLoading, refetch } = useQuery({
@@ -20,6 +22,8 @@ const TechList = () => {
     },
     refetchOnWindowFocus: false
   })
+
+  const ctx = useContext(LanguageContext)
 
   const { isModalOpen, openModal, closeModal } = useModal()
 
@@ -44,14 +48,14 @@ const TechList = () => {
               <Typography level="h3" marginBottom={1.4}>
                 {capitalize(k)}
               </Typography>
-              {data[k].map((item: any) => (
+              {data[k].map(({category, heading, icon, plText, enText,  _id}: any) => (
                 <TechListItem
                   refetch={refetch}
-                  category={item.category}
-                  heading={item.heading}
-                  icon={item.icon}
-                  text={item.text}
-                  id={item._id}
+                  category={category}
+                  heading={heading}
+                  icon={icon}
+                  text={ctx.language === 'en' ? enText : plText}
+                  id={_id}
                   key={nanoid()}
                 />
               ))}
